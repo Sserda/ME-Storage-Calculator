@@ -1,0 +1,3 @@
+Version 0.1 Release Notes
+-Added main menu
+-Added storage menu
