@@ -1,3 +1,4 @@
-Version 0.1 Release Notes
+Version 0.2 Release Notes
 -Added main menu
 -Added storage menu
+-Added rudimentary result page
