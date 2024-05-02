@@ -1,11 +1,9 @@
 #Sserda
 #ME-Storage-Calculator
-#version 0.3
+#version 0.4
 
-#Changelog 5/1/24 9:15pm
-#Finished 1k Results
-#Improved readability
-#Added material results for all
+#Changelog 5/1/24 10:27pm
+#Began additions for 4k components
 
 import os
 
@@ -18,7 +16,7 @@ def menu():
     print("##   ##   ##               ##       #######   ##      ##       ##   ##   ##      #######     ##    ##   ##   ## ##   ")
     print("##   ##   ##   #            ##  ##  ##   ##   ##  ##   ##  ##  ##   ##   ##  ##  ##   ##     ##    ### ###   ## ##   ")
     print("### ###  #######             ####   ##   ##  #######    ####    #####   #######  ##   ##    ####    #####   #### ##  ")
-    print("                                                                                                    version 0.3")
+    print("                                                                                                    version 0.4")
     print()
     print("Welcome to the ME Storage Calculator")
     print("Please select a mode.")
@@ -146,7 +144,13 @@ def main():
                             resultTable(target, a, 0, 0, 0, quartz, 0, 0, redstone, logicProc)
 
                         case "2":
-                            pass
+                            target = "4k Storage Component"
+                            print("How many?")
+                            b = int(input(""))
+                            while b < 1:
+                                print("Invalid input. Must be a number greater than 0.")
+                                b = int(input(""))
+                            a = b * 3
 
                         case "3":
                             pass
