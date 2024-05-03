@@ -1,10 +1,10 @@
 #Sserda
 #ME-Storage-Calculator
-#version 0.5
+#version 0.6
 
-#Changelog 5/2/24 6:49pm
-#Finished 4k components
-#Fixed 1k to adapt to more parameters
+#Changelog 5/2/24 7:16pm
+#Finished 16k components
+#Improved readability of raw materials
 
 import os
 
@@ -17,7 +17,7 @@ def menu():
     print("##   ##   ##               ##       #######   ##      ##       ##   ##   ##      #######     ##    ##   ##   ## ##   ")
     print("##   ##   ##   #            ##  ##  ##   ##   ##  ##   ##  ##  ##   ##   ##  ##  ##   ##     ##    ### ###   ## ##   ")
     print("### ###  #######             ####   ##   ##  #######    ####    #####   #######  ##   ##    ####    #####   #### ##  ")
-    print("                                                                                                    version 0.5")
+    print("                                                                                                    version 0.6")
     print()
     print("Welcome to the ME Storage Calculator")
     print("Please select a mode.")
@@ -90,8 +90,8 @@ def resultTable(selection, a, b = 0, c = 0, d = 0, quartz = 0, redstone = 0, gol
     if logicProc != 0:
         xLP, yLP = divmod(logicProc, 64)
         print(f"Logic Processor:       {xLP} Stack{'s'[:xLP^1]}, {yLP} Item{'s'[:yLP^1]}")
-        print(f"    -Printed Logic Circuit [Gold]: {xLP} Stack{'s'[:xLP^1]}, {yLP} Item{'s'[:yLP^1]}")
-        print(f"    -Printed Silicon [Silicon]:    {xLP} Stack{'s'[:xLP^1]}, {yLP} Item{'s'[:yLP^1]}")
+        print(f"    -Printed Logic Circuit [Gold]:                 {xLP} Stack{'s'[:xLP^1]}, {yLP} Item{'s'[:yLP^1]}")
+        print(f"    -Printed Silicon [Silicon]:                    {xLP} Stack{'s'[:xLP^1]}, {yLP} Item{'s'[:yLP^1]}")
     if calculProc != 0:
         xCP, yCP = divmod(calculProc, 64)
         print(f"Calculator Processor:  {xCP} Stack{'s'[:xCP^1]}, {yCP} Item{'s'[:yCP^1]}")
@@ -100,8 +100,8 @@ def resultTable(selection, a, b = 0, c = 0, d = 0, quartz = 0, redstone = 0, gol
     if engineerProc != 0:
         xEP, yEP = divmod(engineerProc, 64)
         print(f"Engineer Processor:    {xEP} Stack{'s'[:xEP^1]}, {yEP} Item{'s'[:yEP^1]}")
-        print(f"    -Printed Engineering Circuit [Diamond]: {xEP} Stack{'s'[:xEP^1]}, {yEP} Item{'s'[:yEP^1]}")
-        print(f"    -Printed Silicon [Silicon]:             {xEP} Stack{'s'[:xEP^1]}, {yEP} Item{'s'[:yEP^1]}")
+        print(f"    -Printed Engineering Circuit [Diamond]:        {xEP} Stack{'s'[:xEP^1]}, {yEP} Item{'s'[:yEP^1]}")
+        print(f"    -Printed Silicon [Silicon]:                    {xEP} Stack{'s'[:xEP^1]}, {yEP} Item{'s'[:yEP^1]}")
 
     print("---------------------------------------------------------")
 
@@ -210,7 +210,26 @@ def main():
                             resultTable(target, a, b, 0, 0, quartz, redstone, gold, silicon, quartzGlass, chargedQuartz, 0, 0, logicProc, calculProc, 0)
 
                         case "3":
-                            pass
+                            target = "16k Storage Component"
+                            print("How many?")
+                            c = int(input(""))
+                            while c < 1:
+                                print("Invalid input. Must be a number greater than 0.")
+                                c = int(input(""))
+                            b = c * 3
+                            a = b * 3
+                            redstone = c * 61
+                            quartz = c * 36
+                            silicon = c * 13
+                            gold = b * 3
+                            chargedQuartz = b
+                            quartzGlass = b + c
+                            diamond = c
+                            glowstone = c * 4
+                            logicProc = a
+                            calculProc = b
+                            engineerProc = c
+                            resultTable(target, a, b, 0, 0, quartz, redstone, gold, silicon, quartzGlass, chargedQuartz, glowstone, diamond, logicProc, calculProc, engineerProc)
 
                         case "4":
                             pass

@@ -1,3 +1,2 @@
-Version 0.5 Release Notes
--Added 4k components
--Fixed 1k yet again
+Version 0.6 Release Notes
+-Added 16k components
