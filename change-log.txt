@@ -1,3 +1,5 @@
-Version 0.3 Release Notes
--Finished 1k Component results
--Made it easier to add future components
+Version 0.4 Release Notes
+-Made 1k storage components accurate
+-Seperated materials into raw and crafted
+-Moved logic processors to crafted
+-Reordered materials list for better readability

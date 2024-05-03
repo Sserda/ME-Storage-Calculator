@@ -4,6 +4,10 @@
 
 #Changelog 5/1/24 10:27pm
 #Began additions for 4k components
+#Seperated raw materials and crafted materials
+#Declared variables for missing resources
+#Changed incorrect variables
+#Refined variable parameter and printing order for better readability
 
 import os
 
@@ -44,7 +48,7 @@ def storageMenu():
         select = input("Invalid selection: ")
     return select
 
-def resultTable(selection, a, b = 0, c = 0, d = 0, quartz = 0, chargeQuartz = 0, iron = 0, redstone = 0, logicProc = 0):
+def resultTable(selection, a, b = 0, c = 0, d = 0, quartz = 0, redstone = 0, gold = 0, silicon = 0, quartzGlass = 0, logicProc = 0):
     os.system("cls")
     if selection == "1k Storage Component":
         if a != 1:
@@ -83,7 +87,18 @@ def resultTable(selection, a, b = 0, c = 0, d = 0, quartz = 0, chargeQuartz = 0,
             print(f"16k Storage Components: {c}")
         print("---------------------------------------------------------")
 
-    print("Materials: ")
+    print("Crafted Materials: ")
+    print()
+    #Displays Logic Processors if needed
+    if logicProc != 0:
+        xLP, yLP = divmod(logicProc, 64)
+        print(f"Logic Processor:    {xLP} Stack{'s'[:xLP^1]}, {yLP} Item{'s'[:yLP^1]}")
+        print(f"    -Printed Logic Circuit [Gold]: {xLP} Stack{'s'[:xLP^1]}, {yLP} Item{'s'[:yLP^1]}")
+        print(f"    -Printed Silicon [Silicon]:    {xLP} Stack{'s'[:xLP^1]}, {yLP} Item{'s'[:yLP^1]}")
+
+    print("---------------------------------------------------------")
+
+    print("Raw Materials: ")
     print()
     #Displays redstone if needed
     if redstone != 0:
@@ -95,34 +110,26 @@ def resultTable(selection, a, b = 0, c = 0, d = 0, quartz = 0, chargeQuartz = 0,
         xq, yq = divmod(quartz, 64)
         print(f"Quartz:             {xq} Stack{'s'[:xq^1]}, {yq} Item{'s'[:yq^1]}")
 
-    #Displays Logic Processors if needed
-    if logicProc != 0:
-        xLP, yLP = divmod(logicProc, 64)
-        print(f"Logic Processor:    {xLP} Stack{'s'[:xLP^1]}, {yLP} Item{'s'[:yLP^1]}")
+    #Displays Gold if needed
+    if gold != 0:
+        xg, yg = divmod(gold, 64)
+        print(f"Gold:               {xg} Stack{'s'[:xg^1]}, {yg} Item{'s'[:yg^1]}")
 
-    #Displays Charged Quartz if needed
-    if chargeQuartz != 0:
-        xCQ, yCQ = divmod(chargeQuartz, 64)
-        print(f"Charged Quartz:     {xCQ} Stack{'s'[:xCQ^1]}, {yCQ} Item{'s'[:yCQ^1]}")
+    #Displays Silicon if needed
+    if silicon != 0:
+        xS, yS = divmod(silicon, 64)
+        print(f"Silicon:            {xS} Stack{'s'[:xS^1]}, {yS} Item{'s'[:yS^1]}")
 
-    #Displays Iron if needed
-    if iron != 0:
-        xi, yi = divmod(iron, 64)
-        print(f"Iron:               {xi} Stack{'s'[:xi^1]}, {yi} Item{'s'[:yi^1]}")
+    #Displays Quartz Glass if needed
+    if quartzGlass != 0:
+        xQG, yQG = divmod(quartzGlass, 64)
+        print(f"Quartz Glass:       {xQG} Stack{'s'[:xQG^1]}, {yQG} Item{'s'[:yQG^1]}")
+
+
 
     input("Press enter to continue...")
 
 def main():
-
-    a = 0              #1k
-    b = 0              #4k
-    c = 0              #16k
-    d = 0              #64k
-    quartz = 0         #Quartz (nether or otherwise; non charged)
-    chargeQuartz = 0   #Charged Quartz
-    iron = 0           #Iron
-    redstone = 0       #Redstone
-    logicProc = 0      #Logic Processor
 
     mode = menu()
     while mode != "EXIT":
@@ -130,6 +137,22 @@ def main():
             case "1":
                 select = storageMenu()
                 while select != "5":
+                    #    Variable reset
+                    a = 0              #1k
+                    b = 0              #4k
+                    c = 0              #16k
+                    d = 0              #64k
+                    quartz = 0         #Quartz (nether or otherwise; non charged)
+                    redstone = 0       #Redstone
+                    gold = 0           #Gold
+                    silicon = 0        #Silicon
+                    quartzGlass = 0    #Quartz Glass
+                    glowstone = 0      #Glowstone Dust
+                    diamonds = 0       #Diamonds
+                    logicProc = 0      #Logic Processor
+                    calculProc = 0     #Calculation Processor
+                    engineerProc = 0   #Engineering Processor
+
                     match select:
                         case "1":
                             target = "1k Storage Component"
@@ -141,7 +164,9 @@ def main():
                             redstone += (4*a)
                             quartz += (4*a)
                             logicProc += a
-                            resultTable(target, a, 0, 0, 0, quartz, 0, 0, redstone, logicProc)
+                            gold = logicProc
+                            silicon = logicProc
+                            resultTable(target, a, 0, 0, 0, quartz, redstone, gold, silicon, 0, logicProc)
 
                         case "2":
                             target = "4k Storage Component"
@@ -151,6 +176,7 @@ def main():
                                 print("Invalid input. Must be a number greater than 0.")
                                 b = int(input(""))
                             a = b * 3
+                            resultTable(target, a, b, 0, 0, quartz, redstone, 0, 0, logicProc)
 
                         case "3":
                             pass
