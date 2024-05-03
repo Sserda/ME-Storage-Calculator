@@ -1,13 +1,10 @@
 #Sserda
 #ME-Storage-Calculator
-#version 0.4
+#version 0.5
 
-#Changelog 5/1/24 10:27pm
-#Began additions for 4k components
-#Seperated raw materials and crafted materials
-#Declared variables for missing resources
-#Changed incorrect variables
-#Refined variable parameter and printing order for better readability
+#Changelog 5/2/24 6:49pm
+#Finished 4k components
+#Fixed 1k to adapt to more parameters
 
 import os
 
@@ -20,7 +17,7 @@ def menu():
     print("##   ##   ##               ##       #######   ##      ##       ##   ##   ##      #######     ##    ##   ##   ## ##   ")
     print("##   ##   ##   #            ##  ##  ##   ##   ##  ##   ##  ##  ##   ##   ##  ##  ##   ##     ##    ### ###   ## ##   ")
     print("### ###  #######             ####   ##   ##  #######    ####    #####   #######  ##   ##    ####    #####   #### ##  ")
-    print("                                                                                                    version 0.4")
+    print("                                                                                                    version 0.5")
     print()
     print("Welcome to the ME Storage Calculator")
     print("Please select a mode.")
@@ -48,7 +45,7 @@ def storageMenu():
         select = input("Invalid selection: ")
     return select
 
-def resultTable(selection, a, b = 0, c = 0, d = 0, quartz = 0, redstone = 0, gold = 0, silicon = 0, quartzGlass = 0, logicProc = 0):
+def resultTable(selection, a, b = 0, c = 0, d = 0, quartz = 0, redstone = 0, gold = 0, silicon = 0, quartzGlass = 0, chargedQuartz = 0, glowstone = 0, diamond = 0, logicProc = 0, calculProc = 0, engineerProc = 0):
     os.system("cls")
     if selection == "1k Storage Component":
         if a != 1:
@@ -92,9 +89,19 @@ def resultTable(selection, a, b = 0, c = 0, d = 0, quartz = 0, redstone = 0, gol
     #Displays Logic Processors if needed
     if logicProc != 0:
         xLP, yLP = divmod(logicProc, 64)
-        print(f"Logic Processor:    {xLP} Stack{'s'[:xLP^1]}, {yLP} Item{'s'[:yLP^1]}")
+        print(f"Logic Processor:       {xLP} Stack{'s'[:xLP^1]}, {yLP} Item{'s'[:yLP^1]}")
         print(f"    -Printed Logic Circuit [Gold]: {xLP} Stack{'s'[:xLP^1]}, {yLP} Item{'s'[:yLP^1]}")
         print(f"    -Printed Silicon [Silicon]:    {xLP} Stack{'s'[:xLP^1]}, {yLP} Item{'s'[:yLP^1]}")
+    if calculProc != 0:
+        xCP, yCP = divmod(calculProc, 64)
+        print(f"Calculator Processor:  {xCP} Stack{'s'[:xCP^1]}, {yCP} Item{'s'[:yCP^1]}")
+        print(f"    -Printed Calculation Circuit [Charged Quartz]: {xCP} Stack{'s'[:xCP^1]}, {yCP} Item{'s'[:yCP^1]}")
+        print(f"    -Printed Silicon [Silicon]:                    {xCP} Stack{'s'[:xCP^1]}, {yCP} Item{'s'[:yCP^1]}")
+    if engineerProc != 0:
+        xEP, yEP = divmod(engineerProc, 64)
+        print(f"Engineer Processor:    {xEP} Stack{'s'[:xEP^1]}, {yEP} Item{'s'[:yEP^1]}")
+        print(f"    -Printed Engineering Circuit [Diamond]: {xEP} Stack{'s'[:xEP^1]}, {yEP} Item{'s'[:yEP^1]}")
+        print(f"    -Printed Silicon [Silicon]:             {xEP} Stack{'s'[:xEP^1]}, {yEP} Item{'s'[:yEP^1]}")
 
     print("---------------------------------------------------------")
 
@@ -125,6 +132,21 @@ def resultTable(selection, a, b = 0, c = 0, d = 0, quartz = 0, redstone = 0, gol
         xQG, yQG = divmod(quartzGlass, 64)
         print(f"Quartz Glass:       {xQG} Stack{'s'[:xQG^1]}, {yQG} Item{'s'[:yQG^1]}")
 
+    #Displays Charged Quartz if Needed
+    if chargedQuartz != 0:
+        xCQ, yCQ = divmod(chargedQuartz, 64)
+        print(f"Charged Quartz:     {xCQ} Stack{'s'[:xCQ^1]}, {yCQ} Item{'s'[:yCQ^1]}")
+
+    #Displays Glowstone if needed
+    if glowstone != 0:
+        xGS, yGS = divmod(glowstone, 64)
+        print(f"Glowstone Dust:     {xGS} Stack{'s'[:xGS^1]}, {yGS} Item{'s'[:yGS^1]}")
+
+    #Displays Diamonds if needed
+    if diamond != 0:
+        xD, yD = divmod(diamond, 64)
+        print(f"Diamond:            {xD} Stack{'s'[:xD^1]}, {yD} Item{'s'[:yD^1]}")
+
 
 
     input("Press enter to continue...")
@@ -147,6 +169,7 @@ def main():
                     gold = 0           #Gold
                     silicon = 0        #Silicon
                     quartzGlass = 0    #Quartz Glass
+                    chargedQuartz = 0  #Charged Quartz
                     glowstone = 0      #Glowstone Dust
                     diamonds = 0       #Diamonds
                     logicProc = 0      #Logic Processor
@@ -161,12 +184,12 @@ def main():
                             while a < 1:
                                 print("Invalid input. Must be a number greater than 0.")
                                 a = int(input(""))
-                            redstone += (4*a)
+                            redstone += (5*a)
                             quartz += (4*a)
                             logicProc += a
                             gold = logicProc
                             silicon = logicProc
-                            resultTable(target, a, 0, 0, 0, quartz, redstone, gold, silicon, 0, logicProc)
+                            resultTable(target, a, 0, 0, 0, quartz, redstone, gold, silicon, 0, 0, 0, 0, logicProc, 0, 0)
 
                         case "2":
                             target = "4k Storage Component"
@@ -176,7 +199,15 @@ def main():
                                 print("Invalid input. Must be a number greater than 0.")
                                 b = int(input(""))
                             a = b * 3
-                            resultTable(target, a, b, 0, 0, quartz, redstone, 0, 0, logicProc)
+                            redstone = b * 20
+                            quartz = b * 12
+                            silicon = b * 4
+                            gold = b *3
+                            chargedQuartz = b
+                            quartzGlass = b
+                            logicProc = a
+                            calculProc = b
+                            resultTable(target, a, b, 0, 0, quartz, redstone, gold, silicon, quartzGlass, chargedQuartz, 0, 0, logicProc, calculProc, 0)
 
                         case "3":
                             pass
