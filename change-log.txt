@@ -1,2 +1,4 @@
-Version 0.6 Release Notes
--Added 16k components
+Version 1.0 Release Notes
+-Full release
+-Added 64k components
+-Fixed 16k result display issue

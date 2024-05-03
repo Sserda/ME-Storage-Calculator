@@ -1,10 +1,11 @@
 #Sserda
 #ME-Storage-Calculator
-#version 0.6
+#version 1.0
 
 #Changelog 5/2/24 7:16pm
-#Finished 16k components
-#Improved readability of raw materials
+#Finished 64k Components
+#Fixed 16k component display bug
+#Release 1.0
 
 import os
 
@@ -17,7 +18,7 @@ def menu():
     print("##   ##   ##               ##       #######   ##      ##       ##   ##   ##      #######     ##    ##   ##   ## ##   ")
     print("##   ##   ##   #            ##  ##  ##   ##   ##  ##   ##  ##  ##   ##   ##  ##  ##   ##     ##    ### ###   ## ##   ")
     print("### ###  #######             ####   ##   ##  #######    ####    #####   #######  ##   ##    ####    #####   #### ##  ")
-    print("                                                                                                    version 0.6")
+    print("                                                                                                    version 1.0")
     print()
     print("Welcome to the ME Storage Calculator")
     print("Please select a mode.")
@@ -53,19 +54,19 @@ def resultTable(selection, a, b = 0, c = 0, d = 0, quartz = 0, redstone = 0, gol
         else:
             print(f"Target: {a}x {selection}")
 
-    if selection == "4k Storage Component":
+    elif selection == "4k Storage Component":
         if b != 1:
             print(f"Target: {b}x {selection}s")
         else:
             print(f"Target: {b}x {selection}")
 
-    if selection == "16k Storage Component":
+    elif selection == "16k Storage Component":
         if c != 1:
             print(f"Target: {c}x {selection}s")
         else:
             print(f"Target: {c}x {selection}")
 
-    if selection == "64k Storage Component":
+    elif selection == "64k Storage Component":
         if d != 1:
             print(f"Target: {d}x {selection}s")
         else:
@@ -229,10 +230,31 @@ def main():
                             logicProc = a
                             calculProc = b
                             engineerProc = c
-                            resultTable(target, a, b, 0, 0, quartz, redstone, gold, silicon, quartzGlass, chargedQuartz, glowstone, diamond, logicProc, calculProc, engineerProc)
+                            resultTable(target, a, b, c, 0, quartz, redstone, gold, silicon, quartzGlass, chargedQuartz, glowstone, diamond, logicProc, calculProc, engineerProc)
 
                         case "4":
-                            pass
+                            target = "64k Storage Component"
+                            print("How many?")
+                            d = int(input(""))
+                            while d < 1:
+                                print("Invalid input. Must be a number greater than 0.")
+                                d = int(input(""))
+                            c = d * 3
+                            b = c * 3
+                            a = b * 3
+                            redstone = d * 184
+                            quartz = c * 108
+                            silicon = c * 40
+                            gold = b * 3
+                            chargedQuartz = b
+                            quartzGlass = b + c + d
+                            diamond = c + d
+                            glowstone = d * 16
+                            logicProc = a
+                            calculProc = b
+                            engineerProc = c + d
+                            resultTable(target, a, b, c, d, quartz, redstone, gold, silicon, quartzGlass, chargedQuartz, glowstone, diamond, logicProc, calculProc, engineerProc)
+
                     select = storageMenu()
         mode = menu()
 
